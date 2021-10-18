@@ -11,7 +11,7 @@ class Board {
         Board(int** user_defined);
         ~Board();
         int** get_board();
-        bool update();
+        bool update_board();
 };
 
 #endif

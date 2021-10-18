@@ -14,7 +14,7 @@ enum {
     NEXT_STATE,
     END_GAME
 } game_state;
-bool game_over, game_sequential;
+bool game_sequential, game_over, game_quit;
 
 // board
 Board *board;
@@ -34,8 +34,9 @@ int main() {
     signal(SIGINT, signal_handler);     // register handling of C+c
 
     game_state = INIT_GAME;    
-    game_over = false;
     game_sequential = true;
+    game_over = false;
+    game_quit = false;
     counter = 0;
 
     do {
@@ -50,6 +51,7 @@ int main() {
                         break;
                     case false:
                         //board = new Board(ui.read_user_board(board_size));
+                        board = new Board(board_size);
                         board_created = true;
                         break;
                 }
@@ -72,26 +74,25 @@ int main() {
                 break;
 
                 case NEXT_STATE:
-                game_over = board->update();
+                game_over = board->update_board();
                 ui.print_board(board->get_board(), board_size);
                 if (game_over == true) {                // Game over
                     game_state = END_GAME;
-                    break;
                 } else if (game_sequential == true) {   // Sequential progress
                     game_state = READ_COMMAND;
                 } else {                                // Automatic progress
                     cout << "Quit by pressing \"ctrl+C\"" << endl;
-                    sleep(1);
+                    usleep(200000);
                     game_state = NEXT_STATE;
                 }
                 break;
 
             case END_GAME:
                 ui.game_over();
-                game_over = true;
+                game_quit = true;
                 break;
         }
-    } while (game_over == false);
+    } while (game_quit == false);
     
     delete board;
 

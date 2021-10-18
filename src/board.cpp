@@ -66,9 +66,9 @@ int** Board::get_board() {
  * Overwrites the current board with the next state one at the end of its operations
  * so the board_now is always current
  * 
- * @returns true if the board still has at least one cell alive
+ * @returns false if the board still has at least one cell alive
  */
-bool Board::update() {
+bool Board::update_board() {
     int alive_n = 0;
     
     for(int i = 0; i < size; i++)
@@ -94,5 +94,5 @@ bool Board::update() {
     // Transfer the next state to the current board
     board_now = board_next;
 
-    return false;
+    return !alive_n;
 }

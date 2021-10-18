@@ -48,11 +48,13 @@ From the project folder, run the following command to execute the program.
 Florian Gabelle
 
 ## Version History
+* 0.3 
+    * Corrected the behavior when the game ends
 
 * 0.2
     * Implemented the main logic to update the game board.
     * Added a handler to quit the game by pressing ctrl + C (for the automatic progress forever loop).
-        * A better approach would have been to run a separate thread to allow for non blocking polling of keyboard input.
+        * A better approach would have been to run a separate thread + callback to allow for non blocking polling of keyboard input.
 * 0.1
     * Initial commit, missing some blocks to allow full functionality.
     * Provides the main logic in the form of a state machine.

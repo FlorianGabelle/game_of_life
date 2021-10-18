@@ -17,7 +17,7 @@ int Ui::read_board_size() {
 
     do {
         correct = true;
-        cout << "ENTER_SIZE (max 50)" << endl;
+        cout << "ENTER_SIZE (Value between 0 and 50)" << endl;
         getline (cin, str);
         for (auto c : str) {    // check 
             if (!isdigit(c)) {
@@ -60,6 +60,11 @@ bool Ui::read_randomize() {
     }
 }
 
+/**
+ * Reads the state for each cell from the user.
+ *
+ * @returns the bidimensional array containing the user values
+ */
 /* int** Ui::read_user_board(int board_size) {
     return board;
 } */
