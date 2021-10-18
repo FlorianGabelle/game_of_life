@@ -14,17 +14,16 @@ enum {
     NEXT_STATE,
     END_GAME
 } game_state;
-bool game_sequential, game_over, game_quit;
+bool game_sequential, game_over, game_quit, randomize;
+
+// ui
+Ui ui;
+char user_input;
 
 // board
 Board *board;
 int board_size;
 bool board_created;
-
-// ui
-Ui ui;
-bool randomize;
-char user_input;
 
 // interrupt
 void signal_handler(int signal_number);
@@ -36,7 +35,7 @@ int main() {
     game_over = false;
     game_quit = false;
 
-    signal(SIGINT, signal_handler);     // register handling of C+c
+    signal(SIGINT, signal_handler);                     // Register handling of ctrl+C
 
     do {
         switch(game_state) {
@@ -102,7 +101,7 @@ int main() {
  * 
  * @param[in] signal_number The signal number
  */
-void signal_handler(int signal_number)  // 
+void signal_handler(int signal_number)
 {
     ui.print_quit();
     if (board_created)
