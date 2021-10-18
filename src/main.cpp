@@ -104,7 +104,7 @@ int main() {
  */
 void signal_handler(int signal_number)  // 
 {
-    cout << "\n" << "QUIT" << endl;
+    ui.print_quit();
     if (board_created)
         delete board;
     exit(signal_number);

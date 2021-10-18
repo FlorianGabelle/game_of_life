@@ -4,7 +4,7 @@
 class Board {
         int size;
         int** state_current;    // Holds the current values
-        int** state_next;   // Holds the values for the next state
+        int** state_next;       // Holds the values for the next state
         void create_state_next();
     public:
         Board(int board_size);

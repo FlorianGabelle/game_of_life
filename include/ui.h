@@ -10,6 +10,7 @@ class Ui {
         char read_command();
         void print_board(int** table, int size);
         void print_game_over();
+        void print_quit();
         void print_quit_instruction();
 };
 

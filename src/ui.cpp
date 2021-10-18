@@ -20,14 +20,14 @@ int Ui::read_board_size() {
         correct = true;
         cout << "ENTER_SIZE (Value between 0 and 50)" << endl;
         getline (cin, str);
-        for (auto c : str) {    // check 
+        for (auto c : str) {        // check if digit
             if (!isdigit(c)) {
                 correct = false;
                 cout << "ERROR: Wrong input" << endl;
                 break;
             }
         }
-        if (correct) {
+        if (correct) {              // check if value of digit is correct
             size = stoi(str);
             if(size > 50) {
                 correct = false;
@@ -140,6 +140,13 @@ void Ui::print_board(int** board, int size) {
  */
 void Ui::print_game_over() {
     cout << "Game over" << endl;
+}
+
+/**
+ * Prints the quit message.
+ */
+void Ui::print_quit() {
+    cout << "\nQUIT" << endl;
 }
 
 /**

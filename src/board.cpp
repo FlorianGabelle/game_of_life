@@ -63,9 +63,9 @@ int** Board::get() {
 
 /**
  * Computes the next state of the board.
- * Uses a second board to temporarily store the next states
- * Overwrites the current board with the next state one at the end of its operations
- * so the board_now is always current
+ * Uses a second bidimensional array (state_next) to temporarily store the next state.
+ * Overwrites the current state with the next state one at the end of its operations
+ * so the state_current is always updated.
  * 
  * @returns false if the board still has at least one cell alive
  */
@@ -92,7 +92,7 @@ bool Board::update() {
             
         }
 
-    // Transfer the next state to the current board
+    // Transfer the next state to the current state of the board
     state_current = state_next;
 
     return !alive_n;
