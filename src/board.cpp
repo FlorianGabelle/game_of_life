@@ -17,7 +17,9 @@ Board::Board(int board_size) {
 
     for(int i = 0; i < size; i++)      
         for(int j = 0; j < size; j++)
-            board_now[i][j] = rand() % 2; 
+            board_now[i][j] = rand() % 2;
+    
+    create_board_next();
 }
 
 /**
@@ -28,6 +30,14 @@ Board::Board(int board_size) {
  */
 Board::Board(int** user_defined) {
     board_now = user_defined;
+    create_board_next();
+}
+
+void Board::create_board_next() {
+    board_next = new int*[size];         // columns
+
+    for(int i = 0; i < size; i++)
+        board_next[i] = new int[size];   // rows
 }
 
 /**
@@ -61,25 +71,28 @@ int** Board::get_board() {
  */
 bool Board::update() {
     int alive_n = 0;
-    /*
+    
     for(int i = 0; i < size; i++)
         for(int j = 0; j < size; j++)
         {
             int alive_neighbours = 0;
             for (int k = i-1; k <= i+1; k++)
                 for (int l = j-1; l <= j+1; l++)
-                    alive_neighbours += board_now[k][l];
+                    if((k >= 0) && (k < size) && (l >= 0) && (l < size))
+                        alive_neighbours += board_now[k][l];
             alive_neighbours -= board_now[i][j];
 
-            if(board_now[i][j] == 1 && (alive_neighbours <= 1 || alive_neighbours >= 4))
-                board_now[i][j] = 0;
+/*             if(board_now[i][j] == 1 && (alive_neighbours <= 1 || alive_neighbours >= 4))
+                board_next[i][j] = 0;
             else if(board_now[i][j] == 0 && alive_neighbours == 3)
-                board_now[i][j] = 1;
+                board_next[i][j] = 1; */
 
             // Count live cells
             alive_n += board_now[i][j];
-        } 
-    return alive_n;*/
+            board_next[i][j] = alive_neighbours;
+        }
+
+    board_now = board_next;
 
     return false;
 }

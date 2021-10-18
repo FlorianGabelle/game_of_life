@@ -7,7 +7,7 @@
 using namespace std;
 
 // game_state machine
-enum game_state_t {
+enum {
     INIT_GAME,
     NEXT_STATE,
     READ_COMMAND,
@@ -44,6 +44,7 @@ int main() {
                         //board = new Board(ui.read_user_board(board_size));
                         break;
                 }
+                ui.print_board(board->get_board(), board_size);
                 game_state = NEXT_STATE;
                 break;
 
