@@ -14,6 +14,7 @@ int Ui::read_board_size() {
     int size;
     string str = {};
     bool correct = true;
+    clear_terminal();
 
     do {
         correct = true;
@@ -45,6 +46,7 @@ int Ui::read_board_size() {
  */
 bool Ui::read_randomize() {
     char user_input;
+    clear_terminal();
     
     while (true) {
         cout << "Randomize (y/n):" << endl;
@@ -65,16 +67,36 @@ bool Ui::read_randomize() {
  *
  * @returns the bidimensional array containing the user values
  */
-/* int** Ui::read_user_board(int board_size) {
-    return board;
-} */
+int** Ui::read_user_board(int size) {
+    int **user_board = new int*[size];
+
+    for(int i = 0; i < size; i++)
+        user_board[i] = new int[size];
+
+    for(int i = 0; i < size; i++)
+        for(int j = 0; j < size; j++) {
+            char input;
+            clear_terminal();
+            cout << "Enter \"1\" if you want to set the state of the current cell as alive." << endl;
+            cout << "Enter anything else to leave the cell as dead." << endl;
+            print_quit_instruction();
+            cout << "Current cell [" << i+1 << "," << j+1 << "] state : ";
+            cin >> input;
+            if(input == '1')
+                user_board[i][j] = 1;
+            else
+                user_board[i][j] = 0;
+        }
+
+    return user_board;
+}
 
 /**
  * Reads what the user wants to do next.
  *
  * @returns a char, either 's', 'n' or 'q'
  */
-char Ui::read_next_command() {
+char Ui::read_command() {
     char user_input;
     
     while (true) {
@@ -97,13 +119,13 @@ char Ui::read_next_command() {
 }
 
 /**
- * Reads what the user wants to do next.
+ * Prints the board given as input.
  * 
  * @param[in] board the board to be printed
  * @param[in] size the size of the board to be printed
  */
 void Ui::print_board(int** board, int size) {
-    cout << "\033c";    // Clear terminal
+    clear_terminal();
 
     for(int i = 0; i < size; i++)
     {
@@ -116,6 +138,20 @@ void Ui::print_board(int** board, int size) {
 /**
  * Prints the game over message.
  */
-void Ui::game_over() {
+void Ui::print_game_over() {
     cout << "Game over" << endl;
+}
+
+/**
+ * Clears the terminal.
+ */
+void Ui::clear_terminal() {
+    cout << "\033c";
+}
+
+/**
+ * Prints quit instruction.
+ */
+void Ui::print_quit_instruction() {
+    cout << "You can quit by pressing \"ctrl+C\"" << endl;
 }

@@ -50,17 +50,16 @@ int main() {
                         board_created = true;
                         break;
                     case false:
-                        //board = new Board(ui.read_user_board(board_size));
-                        board = new Board(board_size);
+                        board = new Board(ui.read_user_board(board_size), board_size);
                         board_created = true;
                         break;
                 }
-                ui.print_board(board->get_board(), board_size);
+                ui.print_board(board->get(), board_size);
                 game_state = READ_COMMAND;
                 break;
 
             case READ_COMMAND:
-                user_input = ui.read_next_command();
+                user_input = ui.read_command();
                 switch (user_input) {
                     case 's':                           // Automatic progress
                         game_sequential = false;
@@ -74,21 +73,21 @@ int main() {
                 break;
 
                 case NEXT_STATE:
-                game_over = board->update_board();
-                ui.print_board(board->get_board(), board_size);
+                game_over = board->update();
+                ui.print_board(board->get(), board_size);
                 if (game_over == true) {                // Game over
                     game_state = END_GAME;
                 } else if (game_sequential == true) {   // Sequential progress
                     game_state = READ_COMMAND;
                 } else {                                // Automatic progress
-                    cout << "Quit by pressing \"ctrl+C\"" << endl;
-                    usleep(200000);
+                    ui.print_quit_instruction();
+                    sleep(1);
                     game_state = NEXT_STATE;
                 }
                 break;
 
             case END_GAME:
-                ui.game_over();
+                ui.print_game_over();
                 game_quit = true;
                 break;
         }

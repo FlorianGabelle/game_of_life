@@ -48,8 +48,14 @@ From the project folder, run the following command to execute the program.
 Florian Gabelle
 
 ## Version History
+
+* 0.4
+    * The user can now input the state of the cells himself.
+    * Refactoring to help readability.
+    * Minor fixes
+
 * 0.3 
-    * Corrected the behavior when the game ends
+    * Corrected the behavior when the game ends.
 
 * 0.2
     * Implemented the main logic to update the game board.

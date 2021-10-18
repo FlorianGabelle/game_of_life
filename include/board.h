@@ -3,15 +3,15 @@
 
 class Board {
         int size;
-        int** board_now;    // Holds the current values
-        int** board_next;   // Holds the values for the next state
-        void create_board_next();
+        int** state_current;    // Holds the current values
+        int** state_next;   // Holds the values for the next state
+        void create_state_next();
     public:
         Board(int board_size);
-        Board(int** user_defined);
+        Board(int** user_defined, int board_size);
         ~Board();
-        int** get_board();
-        bool update_board();
+        int** get();
+        bool update();
 };
 
 #endif

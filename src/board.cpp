@@ -9,16 +9,16 @@
  * @param[in] board_size the size of the board to create
  */
 Board::Board(int board_size) : size(board_size) {
-    board_now = new int*[size];         // columns
+    state_current = new int*[size];         // columns
 
     for(int i = 0; i < size; i++)
-        board_now[i] = new int[size];   // rows
+        state_current[i] = new int[size];   // rows
 
     for(int i = 0; i < size; i++)      
         for(int j = 0; j < size; j++)
-            board_now[i][j] = rand() % 2;
+            state_current[i][j] = rand() % 2;
     
-    create_board_next();
+    create_state_next();
 }
 
 /**
@@ -26,17 +26,18 @@ Board::Board(int board_size) : size(board_size) {
  * Initialises the board using the one defined by the user.
  *
  * @param[in] user_defined the board defined by the user
+ * @param[in] board_size the size of the board to create
  */
-Board::Board(int** user_defined) {
-    board_now = user_defined;
-    create_board_next();
+Board::Board(int** user_defined, int board_size): size(board_size) {
+    state_current = user_defined;
+    create_state_next();
 }
 
-void Board::create_board_next() {
-    board_next = new int*[size];         // columns
+void Board::create_state_next() {
+    state_next = new int*[size];         // columns
 
     for(int i = 0; i < size; i++)
-        board_next[i] = new int[size];   // rows
+        state_next[i] = new int[size];   // rows
 }
 
 /**
@@ -46,9 +47,9 @@ void Board::create_board_next() {
 Board::~Board() {
     // Free memory
     for(int i = 0; i < size; i++)
-        delete board_now[i];
+        delete state_current[i];
 
-    delete board_now;
+    delete state_current;
 }
 
 /**
@@ -56,8 +57,8 @@ Board::~Board() {
  * 
  * @returns the current board
  */
-int** Board::get_board() {
-    return board_now;
+int** Board::get() {
+    return state_current;
 }
 
 /**
@@ -68,7 +69,7 @@ int** Board::get_board() {
  * 
  * @returns false if the board still has at least one cell alive
  */
-bool Board::update_board() {
+bool Board::update() {
     int alive_n = 0;
     
     for(int i = 0; i < size; i++)
@@ -78,21 +79,21 @@ bool Board::update_board() {
             for (int k = i-1; k <= i+1; k++)
                 for (int l = j-1; l <= j+1; l++)
                     if((k >= 0) && (k < size) && (l >= 0) && (l < size))
-                        alive_neighbours += board_now[k][l];
-            alive_neighbours -= board_now[i][j];
+                        alive_neighbours += state_current[k][l];
+            alive_neighbours -= state_current[i][j];
 
-            if(board_now[i][j] == 1 && (alive_neighbours <= 1 || alive_neighbours >= 4))
-                board_next[i][j] = 0;
-            else if(board_now[i][j] == 0 && alive_neighbours == 3)
-                board_next[i][j] = 1;
+            if(state_current[i][j] == 1 && (alive_neighbours <= 1 || alive_neighbours >= 4))
+                state_next[i][j] = 0;
+            else if(state_current[i][j] == 0 && alive_neighbours == 3)
+                state_next[i][j] = 1;
 
             // Count live cells
-            alive_n += board_now[i][j];
+            alive_n += state_current[i][j];
             
         }
 
     // Transfer the next state to the current board
-    board_now = board_next;
+    state_current = state_next;
 
     return !alive_n;
 }
