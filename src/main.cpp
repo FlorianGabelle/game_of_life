@@ -19,25 +19,24 @@ bool game_sequential, game_over, game_quit;
 // board
 Board *board;
 int board_size;
-bool board_created = false;
+bool board_created;
 
 // ui
 Ui ui;
 bool randomize;
-int counter;
 char user_input;
 
 // interrupt
 void signal_handler(int signal_number);
 
 int main() {
-    signal(SIGINT, signal_handler);     // register handling of C+c
-
+    board_created = false;
     game_state = INIT_GAME;    
     game_sequential = true;
     game_over = false;
     game_quit = false;
-    counter = 0;
+
+    signal(SIGINT, signal_handler);     // register handling of C+c
 
     do {
         switch(game_state) {

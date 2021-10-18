@@ -49,6 +49,9 @@ Florian Gabelle
 
 ## Version History
 
+* 1.0
+    * First release of the application.
+
 * 0.4
     * The user can now input the state of the cells himself.
     * Refactoring to help readability.

@@ -49,7 +49,7 @@ bool Ui::read_randomize() {
     clear_terminal();
     
     while (true) {
-        cout << "Randomize (y/n):" << endl;
+        cout << "Do you want to randomize the state of the cells ? (y/n):" << endl;
         cin >> user_input;
         switch (user_input) {
             case 'y':
