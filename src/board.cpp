@@ -8,8 +8,7 @@
  *
  * @param[in] board_size the size of the board to create
  */
-Board::Board(int board_size) {
-    size = board_size;
+Board::Board(int board_size) : size(board_size) {
     board_now = new int*[size];         // columns
 
     for(int i = 0; i < size; i++)
@@ -82,16 +81,17 @@ bool Board::update() {
                         alive_neighbours += board_now[k][l];
             alive_neighbours -= board_now[i][j];
 
-/*             if(board_now[i][j] == 1 && (alive_neighbours <= 1 || alive_neighbours >= 4))
+            if(board_now[i][j] == 1 && (alive_neighbours <= 1 || alive_neighbours >= 4))
                 board_next[i][j] = 0;
             else if(board_now[i][j] == 0 && alive_neighbours == 3)
-                board_next[i][j] = 1; */
+                board_next[i][j] = 1;
 
             // Count live cells
             alive_n += board_now[i][j];
-            board_next[i][j] = alive_neighbours;
+            
         }
 
+    // Transfer the next state to the current board
     board_now = board_next;
 
     return false;

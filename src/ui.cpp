@@ -98,14 +98,12 @@ char Ui::read_next_command() {
  * @param[in] size the size of the board to be printed
  */
 void Ui::print_board(int** board, int size) {
-    // cout << "\033c";    // Clear terminal
-    cout << endl;
+    cout << "\033c";    // Clear terminal
 
     for(int i = 0; i < size; i++)
     {
         for(int j = 0; j < size; j++)
-            //cout << (board[i][j] ? "* " : "  ");
-            cout << board[i][j] << " ";
+            cout << (board[i][j] ? "* " : "  ");
         cout << endl;
     }
 }

@@ -2,7 +2,7 @@
 #define UI_H
 
 class Ui {
-
+    
     public:
         int read_board_size();
         bool read_randomize();
